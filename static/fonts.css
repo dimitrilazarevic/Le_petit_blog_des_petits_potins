@@ -1,0 +1,11 @@
+@font-face {
+    font-family: Sedan;
+    src: url('./fonts/Sedan-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: Quicksand;
+    src: url('./fonts/Quicksand-Regular.ttf') format('truetype');
+}
+
+
