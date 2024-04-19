@@ -59,7 +59,6 @@ router.post('/create-post', async (req, res) => {
         res.status(200).json(postSuccess)
     } catch (err) {
         res.status(500).json({ message: err.message })
-        console.log(err.message)
     }
 });
 
@@ -90,12 +89,11 @@ router.post('/create-user', async (req, res) => {
         }else if(emailTaken){
             throw new Error("Mail déjà pris !");
         }else{
-            let confirmationLink = WEBSITE_URL+'/confirm-registration/:'+generateString(25);
-            console.log(confirmationLink)
+            req.body.confirmationLink = generateString(128);
             let content = 
             '<h1>Bienvenue '+req.body.username+' !</h1>\
             <br/>\
-            <a href='+confirmationLink+'>Go to website</a>';
+            <a href='+WEBSITE_URL+'/confirm-registration/'+req.body.confirmationLink+'>Go to website</a>';
 
             TRANSPORTER.sendMail(
                 {
@@ -107,8 +105,6 @@ router.post('/create-user', async (req, res) => {
                 (err,info) => {
                     if(err){
                         throw new Error('Mail non existant')
-                    }else{
-                        console.log('Succès : '+info.response)
                     }
                 }
             )
@@ -151,5 +147,81 @@ router.post('/login',async (req,res)=>{
     }
 })
 
+//confirmer un utilisateur
+router.get('/confirm-registration/:confirmationLink', async (req, res) => {
+    try {
+        let user = await 
+        User
+        .findOneAndUpdate(
+            {confirmationLink:req.params.confirmationLink},
+            {status:'user',confirmationLink:null},
+            {new:true}
+        );
+        if(!user){
+            throw new Error ('Lien inexistant')
+        }
+        res.status(200).json({message:'Utilisateur confirmé avec succès',user:user});
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+})
+
+//Demander à changer un MDP
+router.post('/forgotten-password',async (req,res)=>{
+    try{
+        let temporaryLink = generateString(128);
+        let userMatchingEmail = await 
+            User.findOneAndUpdate(
+                {email:req.body.email},
+                {confirmationLink:temporaryLink}
+            );
+        if(!userMatchingEmail){
+            throw new Error("Pas d'utilisateur associé à ce mail.")
+        }
+
+        let content = 
+        "<h1>Ce n'est pas grave d'oublier son mot de passe "+userMatchingEmail.username+" !</h1>\
+        <br/>\
+        <a href="+WEBSITE_URL+"/forgotten-password/"+temporaryLink+">Réinitialiser le mot de passe</a>";
+
+        TRANSPORTER.sendMail(
+            {
+                from : EMAIL,
+                to : req.body.email,
+                subject : 'Réinitialiser le mot de passe',
+                html : content
+            },
+            (err,info) => {
+                if(err){
+                    throw new Error('Mail non existant')
+                }
+            }
+        )
+        res.status(200).json({message : "Un mail contenant un lien pour changer le mot de passe a été envoyé."})
+
+    }catch(err){
+        res.status(422).json({ message: err.message });
+    }
+})
+
+//Modifier un MDP
+router.post('/forgotten-password/:temporaryLink',async (req,res)=>{
+    try{
+        let userChangingPassword = await 
+            User.findOneAndUpdate(
+                {confirmationLink:req.params.temporaryLink},
+                {password:req.body.password,confirmationLink:null}
+            );
+    
+        if(!userChangingPassword){
+            throw new Error("Une erreur s'est produite...")
+        }
+
+        res.status(200).json(userChangingPassword);
+
+    }catch(err){
+        res.status(422).json({ message: err.message });
+    }
+})
 
 module.exports = router;

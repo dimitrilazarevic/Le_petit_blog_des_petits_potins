@@ -1,4 +1,4 @@
-import { API_URL } from "$lib/config";
+import { API_URL } from "$lib/config"; 
 import { redirect } from '@sveltejs/kit';
 import { formToJson,readCookies } from "../../lib/functions";
 
@@ -22,11 +22,10 @@ export function load({cookies}){
     switch(readCookies({cookies}).userStatus){
         case undefined :
         case 'pending' :
-            cookies.set('pageFrom','/create-post',{path:'/'})
-            redirect(302,'/login') 
-            break;
+            cookies.set('pageFrom','/create-post',{path:'/',maxAge:1});
+            redirect(302,'/login') ;
         case 'admin':
         case 'user':
-            return {user:readCookies({cookies})}
+            return {user:readCookies({cookies})};
     }
 }

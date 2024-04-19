@@ -21,6 +21,9 @@ const UserSchema = new mongoose.Schema(
             required : true,
             enum : ['user','admin','pending'],
             default: 'pending'
+        },
+        confirmationLink:{
+            type:String
         }
     },
     {

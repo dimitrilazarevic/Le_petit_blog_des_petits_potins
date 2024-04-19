@@ -6,13 +6,12 @@ import { formToJson,setCookies } from "../../lib/functions";
 
 export const actions = {
     submit: async ({request,cookies}) => {
-        let usernameoremail;
-        let user ;
+        let email='';
         try{
             let userData = await request.formData();
             let reqBody = formToJson(userData);
             let reqBodyJS = JSON.parse(reqBody)
-            let res = await fetch(API_URL+'/api/login',{
+            let res = await fetch(API_URL+'/api/forgotten-password',{
                 method : 'POST',
                 headers : {
                     'Content-Type':'application/json'
@@ -20,27 +19,15 @@ export const actions = {
                 body : reqBody 
             });
             if(!res.ok){
-                usernameoremail = reqBodyJS.usernameoremail;
+                email = reqBodyJS.email;
                 throw new Error(await res.json().then((res)=>res.message))
-            }else{
-                user = await res.json();
-                console.log(user);
-                setCookies(user,{cookies});
             }
+            return {status:200, message : await res.json().then((res)=>res.message)}
         }catch(err){
             return fail(422,{
                 error: err.message,
-                usernameoremail : usernameoremail
+                email : email
             })
         }
-        redirect(302,'/home');
     }
 };
-
-export function load({cookies}){
-    
-    return {
-        userIsRedirectedFromCreatePost : cookies.get('pageFrom')=='/create-post',
-        userJustChangedPassword : cookies.get('pageFrom')=='/forgotten-password'
-    } ;
-}

@@ -7,10 +7,18 @@
     export let form;
     export let data ;
 
-    let usernameoremail = '';
+    let email = '';
 
-    if(form!=null){
-        usernameoremail=form.usernameoremail;
+    let successMessage = null;
+
+    if (form!=null){
+        switch(form.status){
+            case 422:
+                email = form.email;
+                break ;
+            case 200:
+                successMessage = form.message ;
+        }
     }
 
 </script>
@@ -20,26 +28,18 @@
 <div class="error-container">
     {#if form?.error}
         <p class="error">Erreur : {form.error}</p>
-    {:else if data.userIsRedirectedFromCreatePost}
-        <p class="error">Vous devez être connecté pour écrire un post</p>
-    {:else if data.userJustChangedPassword}
-        <p class="success">Mot de passe changé avec succès !</p>
+    {:else if successMessage != null}
+        <p class="success">{successMessage}</p>
     {/if}
 </div>
 
 <form id="login-register-form" method="POST" action="?/submit">
-    <label for="usernameoremail">
-        Email ou nom d'utilisateur :
+    <label for="email">
+        Adresse email :
     </label>
-    <input name="usernameoremail" type="text" bind:value={usernameoremail} autofocus/>
-    <label for='body'>
-        Mot de passe :
-    </label>
-    <input name="password" type="password"/>
+    <input name="email" type="text" bind:value={email} autofocus/>
     <div class="actions-container">
-        <a href="/register">Première connexion ?</a>
-        <button type="submit">Login</button>
-        <a href="/forgotten-password">Mot de passe oublié ?</a>
+        <button type="submit">Confirmer</button>
     </div>
 </form>
 
@@ -64,7 +64,7 @@
     form{
         display:grid;
         grid-template-columns: 2fr 5fr;
-        grid-template-rows: repeat(3,100px);
+        grid-template-rows: repeat(2,100px);
         margin : 100px 30% 0 30%;
         border:3px solid black;
         background-color: floralwhite;

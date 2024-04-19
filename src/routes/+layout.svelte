@@ -15,6 +15,7 @@
             case '/create-post':
             case'/login':
             case'/register':
+            case'/forgotten-password':
                 navButtonPath = "/home";
                 navButtonContent = "Accueil";
                 break ;
@@ -32,13 +33,24 @@
 </script>
 
 <nav>
-    <Navbutton path={navButtonPath} content={navButtonContent}/>
-    {#if !((["/login","/register"].includes($page.url.pathname))||$page.url.pathname.match(/^[/]{1}user/))}
-        {#if !data.userIsConnected}
-        <Navbutton path="/login" content="Login"/>
-        {:else}
-        <Navbutton path={"/user/"+$page.data.user.username} content="Mon compte"/>
+    {#if !$page.url.pathname.match(/^[/]{1}confirm-registration/)}
+
+        <Navbutton path={navButtonPath} content={navButtonContent}/>
+
+        {#if !((["/login","/register"].includes($page.url.pathname))||$page.url.pathname.match(/^[/]{1}user/))}
+
+            {#if !data.userIsConnected}
+
+            <Navbutton path="/login" content="Login"/>
+
+            {:else}
+
+            <Navbutton path={"/user/"+$page.data.user.username} content="Mon compte"/>
+            
+            {/if}
+
         {/if}
+
     {/if}
 </nav>
 

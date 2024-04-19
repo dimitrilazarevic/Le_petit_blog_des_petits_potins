@@ -1,8 +1,7 @@
 <script>
     export let data ;
     import Titrepage from "$lib/components/Titrepage.svelte";
-    import Navbutton from "../../lib/components/Navbutton.svelte";
-
+ 
 </script>
 
 <Titrepage content="Ma dernière aventure..."/>
