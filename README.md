@@ -1,5 +1,11 @@
 # Le petit blog des petits potins
 
+#### Quick demo :
+![alt text](static/images/readme/Overview.gif)
+![alt text](static/images/readme/Overview2.gif)
+![alt text](static/images/readme/Overview3.gif)
+![alt text](static/images/readme/Overview4.gif)
+
 ## Sommaire : 
 ### I : Présentation des fonctionnalités
 
@@ -20,13 +26,6 @@ Quand un utilisateur essaie de se login, s'il entre un nom d'utilisateur ou une 
 Si un utilisateur veut se register, il devra entrer une adresse mail, un nom d'utilisateur, qui n'existent pas encore dans la DB. Ensuite, il devra entrer deux fois un mot de passe compris entre 7 et 14 caractères. S'il a réussi, un message lui indique qu'un mail lui a été envoyé et l'adresse mail en question est précisée. En cliquant sur ce lien, l'utilisateur active son compte et est logged in.
 
 Si un utilisateur oublie son mot de passe, il suivra un processus similaire : il demandera un lien, qui le renverra vers une page où il devra entrer deux fois son nouveau mot de passe et pourra ensuite se login.
-
-#### Quick demo :
-![alt text](static/images/readme/Overview.gif)
-![alt text](static/images/readme/Overview2.gif)
-![alt text](static/images/readme/Overview3.gif)
-![alt text](static/images/readme/Overview4.gif)
-
 
 ### II : Requis, commandes et architecture
 
