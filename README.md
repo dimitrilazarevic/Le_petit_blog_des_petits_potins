@@ -22,7 +22,7 @@ Si un utilisateur veut se register, il devra entrer une adresse mail, un nom d'u
 Si un utilisateur oublie son mot de passe, il suivra un processus similaire : il demandera un lien, qui le renverra vers une page où il devra entrer deux fois son nouveau mot de passe et pourra ensuite se login.
 
 #### Quick demo :
-![alt text](static/images/readme/Overview.gif)
+<img src="static/images.gif" alt="Overview1" width="800"/>
 ![alt text](static/images/readme/Overview2.gif)
 ![alt text](static/images/readme/Overview3.gif)
 ![alt text](static/images/readme/Overview4.gif)
