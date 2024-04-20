@@ -1,7 +1,7 @@
 import { API_URL } from "$lib/config";
 import { fail } from '@sveltejs/kit';
 import { redirect } from '@sveltejs/kit';
-import { formToJson,setCookies } from "$lib/functions";
+import { formToJson } from "$lib/functions";
 
 const regExpPassword = /^([a-zA-Z0-9!$_-éèêà]{7,14})$/
 
@@ -40,8 +40,7 @@ export const actions = {
                 status : 422
             })
         }
-        cookies.set('pageFrom','/forgotten-password',{path:'/',maxAge:1})
-        redirect(302,'/login');
+        redirect(302,'/login/changedpassword');
     }
 };
 

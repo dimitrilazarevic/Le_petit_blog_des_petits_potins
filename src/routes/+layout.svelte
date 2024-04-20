@@ -3,11 +3,12 @@
     import { page } from '$app/stores'
     import { afterNavigate } from '$app/navigation'
     import Navbutton from '../lib/components/Navbutton.svelte';
-    let navButtonPath;
-    let navButtonContent;  
+    
+    let navButtonPath = "/home";
+    let navButtonContent = "Accueil";
 
-    afterNavigate();
-
+    afterNavigate(({})=>{
+        
         navButtonPath = "/home";
         navButtonContent = "Accueil";
 
@@ -17,15 +18,8 @@
                 navButtonContent = "Créer un post";
                 break ;
         }
-        let regExpUser = /^[/]{1}user/
-        if($page.url.pathname.match(regExpUser)!=null){
-            navButtonPath = "/home";
-            navButtonContent = "Accueil";
-        }
-        if($page.status==404){
-            navButtonPath = "/home";
-            navButtonContent = "Accueil";
-        }
+
+    });
 
 </script>
 
@@ -34,7 +28,7 @@
 
         <Navbutton path={navButtonPath} content={navButtonContent}/>
 
-        {#if !((["/login","/register"].includes($page.url.pathname))||$page.url.pathname.match(/^[/]{1}user/))}
+        {#if !((["/login/normal","/login/redirected","/register"].includes($page.url.pathname))||$page.url.pathname.match(/^[/]{1}user/))}
 
             {#if !data.userIsConnected}
 

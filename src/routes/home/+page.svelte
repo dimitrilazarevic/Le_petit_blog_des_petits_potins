@@ -1,6 +1,6 @@
 <script>
     export let data;
-    import { invalidateAll} from '$app/navigation';
+    import { invalidate } from '$app/navigation';
     import Titrepage from '$lib/components/Titrepage.svelte';
     import Affichagedate from './Affichagedate.svelte';
     import Searchform from './Searchform.svelte';
@@ -9,11 +9,15 @@
     let reloadSearch = {};
 
     let username = data.user.username;
+
     async function deletePost(id){
-        await fetch('/api/delete-post/'+id,{method:'DELETE'})
-        .then(()=>invalidateAll())
-        .then(()=>reloadSearch = {})
+        if(data.user.userStatus=='admin'){
+            await fetch('/api/delete-post/'+id,{method:'DELETE'})
+            .then(()=>invalidate('data:posts'))
+            .then(()=>reloadSearch = {})
+        }
     }
+
 </script>
 
 <Titrepage content="Le petit blog des petits potins"/>
@@ -24,19 +28,32 @@
 {/key}
 
 <ul class="post-container">
+
     {#each data.posts as post}
+
         {#if (post.matchesSearch||searchData.pageIsNew)}
+
             <li class="post">
+
                 <h2 class="post-title">{post.title}</h2>
                 <p class="post-info">Publié par {post.author}<br/>
                 Le <Affichagedate date={post.dateCreation}/></p>
                 <p class="post-content">{post.body}</p>
+
             </li>
+
             {#if data.user.userStatus == 'admin'}
-                <div class="delete-container" on:click={deletePost(post._id)}><img src="/images/cross.svg" alt="delete"/></div>
+
+                <div class="delete-container" on:click={deletePost(post._id)}>
+                    <img src="/images/cross.svg" alt="delete"/>
+                </div>
+
             {/if}
+
         {/if}
+
     {/each}
+
 </ul>
 
 <style>

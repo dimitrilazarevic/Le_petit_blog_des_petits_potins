@@ -1,7 +1,5 @@
 <script>
     import Titrepage from "$lib/components/Titrepage.svelte";
-    import Navbutton from "../../lib/components/Navbutton.svelte";
-    import {redirect} from '@sveltejs/kit'
     export let form ;
     export let data ;
 
@@ -32,13 +30,10 @@
     let regExpPassword = data.regExpPassword;
     let submitErrorMessageIsVisible = true ; 
 
-
-    function showSubmitErrorMessage(){
-        submitErrorMessageIsVisible = true ;
-    }
     function hideSubmitErrorMessage(){
         submitErrorMessageIsVisible = false ;
     }
+
     function checkPasswordValidity(){
         passwordIsGood = password.match(regExpPassword)||password==''
         hideSubmitErrorMessage();
@@ -50,15 +45,25 @@
 <Titrepage content="Register"/>
 
 <div class="error-container">
+
     {#if form?.error && submitErrorMessageIsVisible}
+
         <p class="error">Erreur : {form.error}</p>
+ 
     {:else if !passwordIsGood} 
-        <p class="error">Mot de passe à chier</p>
+
+        <p class="error">Le mot de passe doit être compris entre 7 et 14 caractères</p>
+
     {:else if !passwordsMatch}
+
         <p class="error">Les deux mots de passe doivent correspondre !</p>
+
     {:else if successMessage!=null}
+
         <p class="success">{successMessage}</p>
+
     {/if}
+
 </div>
 
 
@@ -66,11 +71,11 @@
     <label for="username">
         Nom d'utilisateur :
     </label>
-    <input name="username" on:keyup={hideSubmitErrorMessage} bind:value={username} autofocus required/>
+    <input name="username" on:keyup|once={hideSubmitErrorMessage} bind:value={username} autofocus required/>
     <label for="email">
         Adresse mail :
     </label>
-    <input name="email" type="email" on:keyup={hideSubmitErrorMessage} bind:value={email} required/>
+    <input name="email" type="email" on:keyup|once={hideSubmitErrorMessage} bind:value={email} required/>
     <label for='password'>
         Mot de passe :
     </label>
@@ -78,7 +83,7 @@
     <label for='password2'>
         Répétez le mot de passe :
     </label>
-    <input name="password2" type="password" bind:value={password2} on:keyup={hideSubmitErrorMessage} required/>
+    <input name="password2" type="password" bind:value={password2} on:keyup|once={hideSubmitErrorMessage} required/>
     <div class="actions-container">
         <button type="submit">Register</button>
         <a href="/login">Déjà inscrit ?</a>
@@ -91,7 +96,6 @@
     }
     .error-container{
         width: 100%;
-        position:fixed;
     }
     .error{
         font-size: 1.2em;
@@ -107,7 +111,7 @@
         display:grid;
         grid-template-columns: 3fr 5fr;
         grid-template-rows: 100px;
-        margin : 100px 30% 0 30%;
+        margin : 30px 30% 0 30%;
         border:3px solid black;
         background-color: floralwhite;
     }

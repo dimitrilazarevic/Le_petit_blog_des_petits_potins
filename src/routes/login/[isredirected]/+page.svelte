@@ -2,12 +2,12 @@
 
     import Titrepage from "$lib/components/Titrepage.svelte";
     import { afterNavigate } from '$app/navigation'
-    import { page } from '$app/stores';
 
     export let form;
     export let data ;
 
     let usernameoremail = '';
+    let userIsRedirectedFromCreatePost = data.userIsRedirectedFromCreatePost;
 
     if(form!=null){
         usernameoremail=form.usernameoremail;
@@ -20,7 +20,7 @@
 <div class="error-container">
     {#if form?.error}
         <p class="error">Erreur : {form.error}</p>
-    {:else if data.userIsRedirectedFromCreatePost}
+    {:else if userIsRedirectedFromCreatePost}
         <p class="error">Vous devez être connecté pour écrire un post</p>
     {:else if data.userJustChangedPassword}
         <p class="success">Mot de passe changé avec succès !</p>
@@ -39,7 +39,7 @@
     <div class="actions-container">
         <a href="/register">Première connexion ?</a>
         <button type="submit">Login</button>
-        <a href="/forgottenpassword">Mot de passe oublié ?</a>
+        <a href="/forgotten_password">Mot de passe oublié ?</a>
     </div>
 </form>
 
@@ -49,7 +49,6 @@
     }
     .error-container{
         width: 100%;
-        position:fixed;
     }
     .error{
         font-size: 1.2em;
@@ -65,7 +64,7 @@
         display:grid;
         grid-template-columns: 2fr 5fr;
         grid-template-rows: repeat(3,100px);
-        margin : 100px 30% 0 30%;
+        margin : 30px 30% 0 30%;
         border:3px solid black;
         background-color: floralwhite;
     }

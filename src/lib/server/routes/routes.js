@@ -1,8 +1,6 @@
 const { Router } = require('express');
 const Post = require('../models/Post');
 const User = require('../models/User');
-const mongoose = require('mongoose');
-const nodemailer = require('nodemailer');
 const { TRANSPORTER,EMAIL,WEBSITE_URL } = require('../config')
 
 //Pour générer un lien temporaire pour valider l'inscription
@@ -135,7 +133,7 @@ router.delete('/delete-post/:id', async (req, res) => {
 //Créer un utilisateur
 router.post('/create-user', async (req, res) => {
     try {
-        let [usersWithSameUsername,usersWithSameEmail] = 
+        let [userWithSameUsername,userWithSameEmail] = 
         await 
         Promise.all([
             User.findOne(
@@ -145,16 +143,12 @@ router.post('/create-user', async (req, res) => {
                 {email:req.body.email}
             )
         ]);
-        let [usernameTaken,emailTaken]=
-        [usersWithSameUsername,usersWithSameEmail]
-        .map((user)=>{
-            user = (user !== null)
-        });
-        if(usernameTaken)
+
+        if(userWithSameUsername!=null)
         {
             throw new Error("Nom déjà pris !");
 
-        }else if(emailTaken)
+        }else if(userWithSameEmail!=null)
         {
             throw new Error("Mail déjà pris !");
 
@@ -166,6 +160,12 @@ router.post('/create-user', async (req, res) => {
             <br/>\
             <a href='+WEBSITE_URL+'/confirm_registration/'+req.body.confirmationLink+'>Go to website</a>';
 
+            const newUser = new User(req.body);
+            const postSuccess = await newUser.save();
+
+            if (!postSuccess) {
+                throw new error("User pas enregistré.");
+            }
             TRANSPORTER.sendMail
             (
                 {
@@ -180,12 +180,6 @@ router.post('/create-user', async (req, res) => {
                     }
                 }
             )
-            const newUser = new User(req.body);
-            const postSuccess = await newUser.save();
-
-            if (!postSuccess) {
-                throw new error("User pas enregistré.");
-            }
             res
             .status(200)
             .json(newUser);

@@ -1,6 +1,6 @@
 import { API_URL } from "$lib/config";
-import { redirect, fail } from '@sveltejs/kit';
-import { formToJson,setCookies } from "../../lib/functions";
+import { fail } from '@sveltejs/kit';
+import { formToJson } from "../../lib/functions";
 
 // Je déclare cette variable pour que l'username ou l'email de l'user reste affiché si il se trompe de mot de passe
 

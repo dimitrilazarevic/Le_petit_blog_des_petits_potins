@@ -7,13 +7,18 @@ export const actions = {
     submit: async ({request}) => {	
         let postData = await request.formData();
         let reqBody = formToJson(postData);
-        await fetch(API_URL+'/api/create-post',{
-            method : 'POST',
-            headers : {
-                'Content-Type':'application/json'
-            },
-            body : reqBody
-        })
+        await fetch
+        (
+            API_URL+'/api/create-post',
+            {
+                method : 'POST',
+                body : reqBody,
+                headers : 
+                {
+                    'Content-Type':'application/json'
+                }
+            }
+        )
         .then(()=>redirect(302,'/home'))
     }
 };
@@ -22,7 +27,6 @@ export function load({cookies}){
     switch(readCookies({cookies}).userStatus){
         case undefined :
         case 'pending' :
-            cookies.set('pageFrom','/create-post',{path:'/',maxAge:1});
-            redirect(302,'/login') ;
+            redirect(302,'/login/redirected') ;
     }
 }

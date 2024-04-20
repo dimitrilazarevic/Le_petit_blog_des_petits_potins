@@ -1,7 +1,5 @@
 import { API_URL } from "$lib/config";
 import { fail } from '@sveltejs/kit';
-import { redirect } from '@sveltejs/kit';
-import {goto} from '$app/navigation'
 import { formToJson,setCookies } from "../../lib/functions";
 
 const regExpPassword = /^([a-zA-Z0-9!$_-éèêà]{7,14})$/
