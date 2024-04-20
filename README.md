@@ -67,3 +67,25 @@ export default defineConfig({
 	- MONGO_URI : le lien de connexion à la BDD
 	- MAILER_ADRESS : l'adresse mail qui va envoyer les mails
 	- MAILER_PASSWORD : le mot de passe de l'adresse mail (pas celui pour se connecter classiquement au compte mais celui spécifiquement utilisé pour se connecter à une app externe)
+
+#### Architecture 
+
+- static : contient les fonts et les images ainsi que deux fichiers css : global et fonts, les styles globaux et les polices.
+- src : contient tout le code écrit pour l'app.
+	- lib : contient du code utilisé partout dans l'app, et le server
+	
+		config.js : définit des options comme la durée de vie des cookies, l'URL de l'API, la liste des cookies qui définit un user
+		functions.js : contient quelques fonctions qui sont utilisées ailleurs dans le code
+		
+		- server : contient le code du server de backend
+			- models : contient les modèles des données, User et Post ici
+			- routes : contient routes.js, qui définit toutes les routes de l'API
+			config.js : donne le numéro de PORT utilisé pour le backend, l'URI de la DB, l'EMAIL, l'URL du Website (qui n'est que rappelé ici, pas défini), TRANSPORTER qui définit l'outil de transport mail : il utilise .env
+			.env : stocke de manière sécurisée le string de connexion à l'URI et les identifiants de connexion au transporter.
+			server.js : le fichier qui lance le serveur backend
+		- components
+			Navbutton : le bouton de navigation, très utilisé
+			TitrePage : présent sur presque chaque page, avec un contenu différent
+	- routes
+		La page d'erreur, de layout, et un redirect de '/' à '/home'
+		- Tous les folders contenant les routes de l'app
