@@ -23,7 +23,7 @@ Si un utilisateur oublie son mot de passe, il suivra un processus similaire : il
 
 #### Quelques screenshots :
 ##### Page d'accueil :
-![alt text](src/static/images/readme/Accueil.png)
+![alt text](static/images/readme/Accueil.png)
 ##### Page d'accueil en étant connecté en tant qu'admin :
 Avec la possibilité de cliquer sur la croix à côté d'un post pour le supprimer, et de faire des recherches par mot clés.
 ![[Pasted image 20240420112820.png]]
