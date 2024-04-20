@@ -1,8 +1,6 @@
 <script>
 
     import Titrepage from "$lib/components/Titrepage.svelte";
-    import { afterNavigate } from '$app/navigation'
-    import { page } from '$app/stores';
 
     export let form;
     export let data ;
@@ -23,7 +21,7 @@
 
 </script>
 
-<Titrepage content="Login"/>
+<Titrepage content="Mot de passe oublié"/>
 
 <div class="error-container">
     {#if form?.error}

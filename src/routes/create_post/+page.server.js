@@ -24,8 +24,5 @@ export function load({cookies}){
         case 'pending' :
             cookies.set('pageFrom','/create-post',{path:'/',maxAge:1});
             redirect(302,'/login') ;
-        case 'admin':
-        case 'user':
-            return {user:readCookies({cookies})};
     }
 }

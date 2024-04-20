@@ -40,6 +40,7 @@ export const actions = {
                 throw new Error(user.message)
             }
             setCookies(user,{cookies});
+            return({status:200,email:email});
 
         }catch(err){
             return fail(422,{
@@ -49,7 +50,6 @@ export const actions = {
                 email : email
             })
         }
-        redirect(302,'/home');
     }
 };
 

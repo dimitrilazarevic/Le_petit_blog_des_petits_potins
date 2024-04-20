@@ -39,7 +39,7 @@
     <div class="actions-container">
         <a href="/register">Première connexion ?</a>
         <button type="submit">Login</button>
-        <a href="/forgotten-password">Mot de passe oublié ?</a>
+        <a href="/forgotten_password">Mot de passe oublié ?</a>
     </div>
 </form>
 

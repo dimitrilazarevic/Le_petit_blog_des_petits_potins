@@ -11,22 +11,16 @@
     //Le code qui suit permet de garder l'username et l'email en cas de submit raté
     let username,email ;
     username = email = '';
-    if(form!=null){
-        console.log(form);
-        username = form.username;
-        email = form.email;
-    }
-
     let successMessage = null;
 
     if (form!=null){
         switch(form.status){
             case 422:
-                username = form.username;
                 email = form.email;
+                username = form.username;
                 break ;
             case 200:
-                successMessage = "Utilisateur créé avec succès !"
+                successMessage = "Un email de confirmation vous a été envoyé à l'adressse "+form.email+" !"
         }
     }
 

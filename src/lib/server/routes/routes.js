@@ -93,7 +93,7 @@ router.post('/create-user', async (req, res) => {
             let content = 
             '<h1>Bienvenue '+req.body.username+' !</h1>\
             <br/>\
-            <a href='+WEBSITE_URL+'/confirm-registration/'+req.body.confirmationLink+'>Go to website</a>';
+            <a href='+WEBSITE_URL+'/confirm_registration/'+req.body.confirmationLink+'>Go to website</a>';
 
             TRANSPORTER.sendMail(
                 {
@@ -182,7 +182,7 @@ router.post('/forgotten-password',async (req,res)=>{
         let content = 
         "<h1>Ce n'est pas grave d'oublier son mot de passe "+userMatchingEmail.username+" !</h1>\
         <br/>\
-        <a href="+WEBSITE_URL+"/forgotten-password/"+temporaryLink+">Réinitialiser le mot de passe</a>";
+        <a href="+WEBSITE_URL+"/forgotten_password/"+temporaryLink+">Réinitialiser le mot de passe</a>";
 
         TRANSPORTER.sendMail(
             {

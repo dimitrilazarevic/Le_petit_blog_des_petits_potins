@@ -33,10 +33,9 @@
         hideSubmitErrorMessage();
     }
 
-
 </script>
 
-<Titrepage content="Register"/>
+<Titrepage content="Changer de mot de passe"/>
 
 <div class="error-container">
     {#if form?.error && submitErrorMessageIsVisible}

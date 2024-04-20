@@ -9,13 +9,13 @@
     afterNavigate();
         switch($page.url.pathname){
             case '/home':
-                navButtonPath = "/create-post";
+                navButtonPath = "/create_post";
                 navButtonContent = "Créer un post";
                 break ;
-            case '/create-post':
-            case'/login':
-            case'/register':
-            case'/forgotten-password':
+            case '/create_post':
+            case '/login':
+            case '/register':
+            case '/forgotten_password':
                 navButtonPath = "/home";
                 navButtonContent = "Accueil";
                 break ;
@@ -33,7 +33,7 @@
 </script>
 
 <nav>
-    {#if !$page.url.pathname.match(/^[/]{1}confirm-registration/)}
+    {#if !$page.url.pathname.match(/^[/]{1}confirm_registration/)}
 
         <Navbutton path={navButtonPath} content={navButtonContent}/>
 
