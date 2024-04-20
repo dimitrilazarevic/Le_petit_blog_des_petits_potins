@@ -26,12 +26,14 @@ Si un utilisateur oublie son mot de passe, il suivra un processus similaire : il
 ![alt text](static/images/readme/Accueil.png)
 ##### Page d'accueil en étant connecté en tant qu'admin :
 Avec la possibilité de cliquer sur la croix à côté d'un post pour le supprimer, et de faire des recherches par mot clés.
-![[Pasted image 20240420112820.png]]
+![alt text](static/images/readme/Admin.png)
+
 ##### Informations de compte :
-![[Pasted image 20240420112902.png]]
+![alt text](static/images/readme/Account.png)
 
 ##### Mauvais login :
-![[Pasted image 20240420112933.png]]
+![alt text](static/images/readme/Login.png)
+
 ### II : Requis, commandes et architecture
 
 #### Tech stack :
