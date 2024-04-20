@@ -212,12 +212,8 @@ router.post('/login',async (req,res)=>{
                 {email:req.body.usernameoremail}
             )
         ]);
-
         let userMatchingSearch =
-        [userMatchingUsername,userMatchingEmail]
-        .find((el)=>{
-            el != undefined
-        });
+        [userMatchingUsername,userMatchingEmail].find((el)=> el != undefined );
 
         let userExists = (userMatchingSearch != undefined);
 
@@ -297,7 +293,7 @@ router.post('/forgotten-password',async (req,res)=>{
         let content = 
         "<h1>Ce n'est pas grave d'oublier son mot de passe "+userMatchingEmail.username+" !</h1>\
         <br/>\
-        <a href="+WEBSITE_URL+"/forgotten_password/"+temporaryLink+">Réinitialiser le mot de passe</a>";
+        <a href="+WEBSITE_URL+"/forgottenpassword/"+temporaryLink+">Réinitialiser le mot de passe</a>";
 
         TRANSPORTER.sendMail(
             {

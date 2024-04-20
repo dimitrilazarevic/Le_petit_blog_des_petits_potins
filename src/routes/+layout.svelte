@@ -7,17 +7,14 @@
     let navButtonContent;  
 
     afterNavigate();
+
+        navButtonPath = "/home";
+        navButtonContent = "Accueil";
+
         switch($page.url.pathname){
             case '/home':
                 navButtonPath = "/create_post";
                 navButtonContent = "Créer un post";
-                break ;
-            case '/create_post':
-            case '/login':
-            case '/register':
-            case '/forgotten_password':
-                navButtonPath = "/home";
-                navButtonContent = "Accueil";
                 break ;
         }
         let regExpUser = /^[/]{1}user/

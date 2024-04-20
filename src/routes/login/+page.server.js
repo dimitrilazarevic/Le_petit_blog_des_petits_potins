@@ -24,7 +24,6 @@ export const actions = {
                 throw new Error(await res.json().then((res)=>res.message))
             }else{
                 user = await res.json();
-                console.log(user);
                 setCookies(user,{cookies});
             }
         }catch(err){
