@@ -275,3 +275,25 @@ Ensuite, le contenu de mon mail., qui est un string représentant un message en 
 
 
 ## /confirm_registration/[temporary_link]
+Ici, c'est un simple findoneandupdate. De plus, je veux qu'on me renvoie le nouvel utilisateur : alors, je mets new:true dans les options de query (sinon, on m'aurait envoyé l'user avant sa mise à jour). Le status devient user et confirmationLink est reset.
+
+## /forgotten_password
+Rien à dire de très nouveau ici par rapport à confirm registration et register, on prend des méthodes des deux pour faire le business en question.
+
+
+
+## /user
+Pour se logout, on utilise un formulaire avec un seul bouton qui reset les cookies et qui redirige vers home. Rien de compliqué !
+
+
+
+## +error.svelte
+On utilisera les propriétés de page : $page.error.status ou $page.error.message.
+
+
+## A améliorer :
+- Les cookies d'utilisateurs sont une faille de sécurité et le système doit être changé pour mettre en place un token de session à la place
+- Il y a du code un peu trop répété, pas assez factorisé surtout au niveau du CSS : j'aurais peut être dû faire plus usage des styles globaux, ou trouver une autre solution
+- Mettre server dans lib ne fait pas vraiment de sens. Il aurait dû être mis au même niveau que routes, juste en dessous de src
+- Là, on ne loade pas beaucoup de data sur la page d'accueil donc j'ai pu me permettre de reload tout quand je supprime un élément, mais il vaudrait mieux stocker en local une liste de posts et agir sur elle, pour ne pas avoir à tout reload à chaque fois.
+
