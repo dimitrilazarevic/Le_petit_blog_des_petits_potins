@@ -23,6 +23,9 @@ Si un utilisateur oublie son mot de passe, il suivra un processus similaire : il
 
 #### Quick demo :
 ![alt text](static/images/readme/Overview.gif)
+![alt text](static/images/readme/Overview2.gif)
+![alt text](static/images/readme/Overview3.gif)
+![alt text](static/images/readme/Overview4.gif)
 
 
 ### II : Requis, commandes et architecture
