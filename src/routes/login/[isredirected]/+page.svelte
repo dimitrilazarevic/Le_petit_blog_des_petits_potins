@@ -51,19 +51,6 @@
     :root{
     --form-element-margin : 20px;
     }
-    .error-container{
-        width: 100%;
-    }
-    .error{
-        font-size: 1.2em;
-        color:red;
-        text-align: center;
-    }
-    .success{
-        font-size: 1.2em;
-        color:green;
-        text-align: center;
-    }
     form{
         display:grid;
         grid-template-columns: 2fr 5fr;

@@ -1,5 +1,5 @@
 import { API_URL } from "$lib/config"; 
-import { redirect } from '@sveltejs/kit';
+import { error, fail, redirect } from '@sveltejs/kit';
 import { formToJson } from "$lib/functions";
 
 
@@ -7,7 +7,7 @@ export const actions = {
     submit: async ({request}) => {	
         let postData = await request.formData();
         let reqBody = formToJson(postData);
-        await fetch
+        let res = await fetch
         (
             API_URL+'/create-post',
             {
@@ -19,7 +19,13 @@ export const actions = {
                 }
             }
         )
-        .then(()=>redirect(302,'/home'))
+        if(!res.ok)
+        {
+            return fail(422,{error: "Le post n'a pas pu être créé..."})
+        }else
+        {
+            redirect(302,'/home')
+        }
     }
 };
 

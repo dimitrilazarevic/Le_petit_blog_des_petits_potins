@@ -1,10 +1,19 @@
 <script>
     export let data ;
+    export let form ;
     import Titrepage from "$lib/components/Titrepage.svelte";
  
 </script>
 
 <Titrepage content="Ma dernière aventure..."/>
+
+{#if form?.error}
+    <div class="error-container">
+        <p class="error">
+            {form.error}
+        </p>
+    </div>
+{/if}
 
 <form id="create-post-form" method="POST" action="?/submit">
     <label for="title">
