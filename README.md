@@ -11,7 +11,7 @@
 ### Register, et confirmer le compte :
 ![alt text](static/images/readme/Overview3.gif)
 
-### Mot de passe oublier, choisir un nouveau mot de passe :
+### Mot de passe oublié, choisir un nouveau mot de passe :
 ![alt text](static/images/readme/Overview4.gif)
 
 ## Sommaire : 
