@@ -9,24 +9,42 @@
     let searchData = {};
     let reloadSearch = {};
     let posts = data.posts ;
+    let errorMessage ;
 
     async function deletePost(id){
         if(data.userInfo.status=='admin'){
+            
             let deletedPost = await fetch(API_URL+'/delete-post/'+id,{method:'DELETE'})
-            .then((res)=>res.json())
+            .then(
+                (res)=>res.json(),
+                (err)=>err.json()
+            )
 
-            let index = posts.findIndex((val)=>val._id==deletedPost._id);
-            let posts1 = posts.slice(0,index)
-            let posts2 = posts.slice(index+1,posts.length)
-            posts = posts1.concat(posts2);
-
-            reloadSearch = {};
+            if(deletedPost.status==500)
+            {
+                errorMessage = deletedPost.message ;
+            }else
+            {
+                let index = posts.findIndex((val)=>val._id==deletedPost._id);
+                let posts1 = posts.slice(0,index)
+                let posts2 = posts.slice(index+1,posts.length)
+                posts = posts1.concat(posts2);
+                reloadSearch = {};
+            }
         }
     }
 
 </script>
 
 <Titrepage content="Le petit blog des petits potins"/>
+
+{#if errorMessage!=undefined}
+    <div class="error-container">
+        <p class="error">
+            {errorMessage}
+        </p>
+    </div>
+{/if}
 
 {#if data.userInfo.status != 'logged out'}
     <h3 class="welcome-message">
@@ -68,6 +86,14 @@
 </ul>
 
 <style>
+    .error-container{
+        width: 100%;
+    }
+    .error{
+        font-size: 1.2em;
+        color:red;
+        text-align: center;
+    }
     .welcome-message{
         text-align: center;
     }

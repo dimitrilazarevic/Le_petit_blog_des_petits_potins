@@ -116,7 +116,7 @@ router.delete('/delete-post/:id', async (req, res) => {
         );
         if (deletedPost == null | undefined) 
         {
-            throw new Error("Pas pu suprimer chef.")
+            throw new Error()
         }
         res
         .status(200)
@@ -125,7 +125,7 @@ router.delete('/delete-post/:id', async (req, res) => {
     }catch (err) {
         res
         .status(500)
-        .json({ message: err.message })
+        .json({ status:500,message: "Suppression échouée..." })
     }
 })
 
