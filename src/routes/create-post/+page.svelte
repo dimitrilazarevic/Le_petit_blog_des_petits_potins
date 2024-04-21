@@ -15,7 +15,7 @@
         Racontez nous ! 
     </label>
     <textarea name="body"/>
-    <input type="hidden" name="author" value={data.user.username}>
+    <input type="hidden" name="author" value={data.userInfo.username}>
     <button type="submit">Publier</button>
 </form>
 

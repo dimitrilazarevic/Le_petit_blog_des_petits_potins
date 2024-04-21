@@ -23,10 +23,16 @@ export const actions = {
     }
 };
 
-export function load({cookies}){
-    switch(readCookies({cookies}).userStatus){
-        case undefined :
-        case 'pending' :
+export async function load({cookies}){
+        if(
+            await 
+            fetch
+            (API_URL+'/api/user-info/'+cookies.get('sessionID'))
+            .then((res)=>res.json())
+            .then((res)=>res.status)
+            ==
+            'logged out'
+        ){
             redirect(302,'/login/redirected') ;
-    }
+        }    
 }

@@ -1,20 +1,25 @@
 <script>
     export let data ;
     import { page } from '$app/stores'
-    import { afterNavigate } from '$app/navigation'
+    import { afterNavigate, invalidate } from '$app/navigation'
     import Navbutton from '../lib/components/Navbutton.svelte';
     
-    let navButtonPath = "/home";
-    let navButtonContent = "Accueil";
+    let navButtonPath 
+    let navButtonContent = 'Loading...'
 
     afterNavigate(({})=>{
-        
-        navButtonPath = "/home";
-        navButtonContent = "Accueil";
+
+        invalidate('data:sessionID');
+
+        if($page.url.pathname!='/home')
+        {
+            navButtonPath = "/home";
+            navButtonContent = "Accueil";
+        }
 
         switch($page.url.pathname){
             case '/home':
-                navButtonPath = "/create_post";
+                navButtonPath = "/create-post";
                 navButtonContent = "Créer un post";
                 break ;
         }
@@ -24,19 +29,19 @@
 </script>
 
 <nav>
-    {#if !$page.url.pathname.match(/^[/]{1}confirm_registration/)}
+    {#if !$page.url.pathname.match(/^[/]{1}confirm-registration/)}
 
         <Navbutton path={navButtonPath} content={navButtonContent}/>
 
         {#if !((["/login/normal","/login/redirected","/register"].includes($page.url.pathname))||$page.url.pathname.match(/^[/]{1}user/))}
 
-            {#if !data.userIsConnected}
+            {#if data.userInfo.status=="logged out"}
 
             <Navbutton path="/login" content="Login"/>
 
             {:else}
 
-            <Navbutton path={"/user/"+$page.data.user.username} content="Mon compte"/>
+            <Navbutton path={"/user/"+data.userInfo.username} content="Mon compte"/>
             
             {/if}
 

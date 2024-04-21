@@ -1,9 +1,10 @@
 <script>
     export let data ;
+    console.log(data.userInfo)
     const userInfoTable = [
-        {key:'ID',data:data.userID},
-        {key:'Username',data:data.username},
-        {key:'User Status',data:data.userStatus}
+        {key:'ID',data:data.userInfo._id},
+        {key:'Username',data:data.userInfo.username},
+        {key:'User Status',data:data.userInfo.status}
     ];
 </script>
 

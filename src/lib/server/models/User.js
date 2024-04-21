@@ -24,6 +24,9 @@ const UserSchema = new mongoose.Schema(
         },
         confirmationLink:{
             type:String
+        },
+        sessionID:{
+            type:String
         }
     },
     {

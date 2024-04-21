@@ -1,4 +1,4 @@
-import { API_URL } from "$lib/config";
+import { API_URL, cookieOptions } from "$lib/config";
 import { fail } from '@sveltejs/kit';
 import { redirect } from '@sveltejs/kit';
 import { formToJson } from "$lib/functions";
@@ -36,13 +36,16 @@ export const actions = {
                 throw new Error(await res.json().then((res)=>res.message))
             }
 
+            let user = await res.json();
+            cookies.set('sessionID',user.sessionID,cookieOptions);
+
         }catch(err){
             return fail(422,{
                 error: err.message,
                 status : 422
             })
         }
-        redirect(302,'/login/changedpassword');
+        redirect(302,'/home');
     }
 };
 

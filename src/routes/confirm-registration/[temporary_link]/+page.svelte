@@ -1,7 +1,6 @@
 <script>
     export let data;
-    import { page } from '$app/stores'
-    import Navbutton from '../../../lib/components/Navbutton.svelte';
+    import Navbutton from '$lib/components/Navbutton.svelte';
 
 </script>
 

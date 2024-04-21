@@ -1,9 +1,8 @@
 const { Router } = require('express');
 const Post = require('../models/Post');
 const User = require('../models/User');
-const { TRANSPORTER,EMAIL,WEBSITE_URL } = require('../config')
+const { TRANSPORTER,EMAIL,WEBSITE_URL } = require('../config');
 
-//Pour générer un lien temporaire pour valider l'inscription
 function generateString(length) 
 {
     const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -158,7 +157,7 @@ router.post('/create-user', async (req, res) => {
             let content = 
             '<h1>Bienvenue '+req.body.username+' !</h1>\
             <br/>\
-            <a href='+WEBSITE_URL+'/confirm_registration/'+req.body.confirmationLink+'>Go to website</a>';
+            <a href='+WEBSITE_URL+'/confirm-registration/'+req.body.confirmationLink+'>Go to website</a>';
 
             const newUser = new User(req.body);
             const postSuccess = await newUser.save();
@@ -223,7 +222,10 @@ router.post('/login',async (req,res)=>{
         }
 
         if(userMatchingSearch.password==req.body.password)
-        {
+        {   
+            let sessionID = generateString(128);
+            userMatchingSearch.sessionID = sessionID ;
+            await userMatchingSearch.save();
             res
             .status(200)
             .json(userMatchingSearch);
@@ -256,6 +258,9 @@ router.get('/confirm-registration/:confirmationLink', async (req, res) => {
         if(!user){
             throw new Error ('Lien inexistant')
         }
+        let sessionID = generateString(128);
+        user.sessionID = sessionID ;
+        await user.save();
         res
         .status(200)
         .json({
@@ -287,7 +292,7 @@ router.post('/forgotten-password',async (req,res)=>{
         let content = 
         "<h1>Ce n'est pas grave d'oublier son mot de passe "+userMatchingEmail.username+" !</h1>\
         <br/>\
-        <a href="+WEBSITE_URL+"/forgottenpassword/"+temporaryLink+">Réinitialiser le mot de passe</a>";
+        <a href="+WEBSITE_URL+"/forgotten-password/"+temporaryLink+">Réinitialiser le mot de passe</a>";
 
         TRANSPORTER.sendMail(
             {
@@ -328,6 +333,10 @@ router.post('/forgotten-password/:temporaryLink',async (req,res)=>{
             throw new Error("Une erreur s'est produite...")
         }
 
+        let sessionID = generateString(128);
+        userChangingPassword.sessionID = sessionID ;
+        await userChangingPassword.save();
+
         res
         .status(200)
         .json(userChangingPassword);
@@ -338,5 +347,28 @@ router.post('/forgotten-password/:temporaryLink',async (req,res)=>{
         .json({ message: err.message });
     }
 })
+
+//Obtenir les infos (username, status) d'un user à partir de sa session ID
+router.get('/user-info/:sessionID', async(req,res) => {
+    try
+    {
+        let userInfo = await User.findOne(
+            {sessionID:req.params.sessionID},
+            'username status'
+        );
+        if(!userInfo)
+        {
+            throw new Error("Aucun user ne correspond à l'ID de session")
+        }
+        res
+        .status(200)
+        .json(userInfo);
+
+    }catch(err){
+        res
+        .status(404)
+        .json({status:'logged out',message:err.message});
+    }
+});
 
 module.exports = router;

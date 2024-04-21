@@ -1,66 +1,43 @@
 <script>
+
     import Titrepage from "$lib/components/Titrepage.svelte";
-    export let form ;
+
+    export let form;
     export let data ;
+
+    let email = '';
 
     let successMessage = null;
 
     if (form!=null){
         switch(form.status){
+            case 422:
+                email = form.email;
+                break ;
             case 200:
-                alert('Mot de passe changé avec succès !')
-                break;
+                successMessage = form.message ;
         }
-    }
-
-
-    let password,password2 ;
-    password = password2 = '';
-    $: passwordsMatch = password==password2||password.length<7||password2=='' ;
-    let passwordIsGood = true ;
-    let regExpPassword = data.regExpPassword;
-    let submitErrorMessageIsVisible = true ; 
-
-
-    function showSubmitErrorMessage(){
-        submitErrorMessageIsVisible = true ;
-    }
-    function hideSubmitErrorMessage(){
-        submitErrorMessageIsVisible = false ;
-    }
-    function checkPasswordValidity(){
-        passwordIsGood = password.match(regExpPassword)||password==''
-        hideSubmitErrorMessage();
     }
 
 </script>
 
-<Titrepage content="Changer de mot de passe"/>
+<Titrepage content="Mot de passe oublié"/>
 
 <div class="error-container">
-    {#if form?.error && submitErrorMessageIsVisible}
+    {#if form?.error}
         <p class="error">Erreur : {form.error}</p>
-    {:else if !passwordIsGood} 
-        <p class="error">Mot de passe à chier</p>
-    {:else if !passwordsMatch}
-        <p class="error">Les deux mots de passe doivent correspondre !</p>
-    {:else if successMessage!=null}
+    {:else if successMessage != null}
         <p class="success">{successMessage}</p>
     {/if}
 </div>
 
-
 <form id="login-register-form" method="POST" action="?/submit">
-    <label for='password'>
-        Mot de passe :
+    <label for="email">
+        Adresse email :
     </label>
-    <input name="password" type="password" bind:value={password} on:keyup={checkPasswordValidity} required/>
-    <label for='password2'>
-        Répétez le mot de passe :
-    </label>
-    <input name="password2" type="password" bind:value={password2} on:keyup={hideSubmitErrorMessage} required/>
+    <input name="email" type="email" bind:value={email} autofocus/>
     <div class="actions-container">
-        <button type="submit">Modifier le mot de passse</button>
+        <button type="submit">Confirmer</button>
     </div>
 </form>
 
@@ -84,8 +61,8 @@
     }
     form{
         display:grid;
-        grid-template-columns: 3fr 5fr;
-        grid-template-rows: 100px;
+        grid-template-columns: 2fr 5fr;
+        grid-template-rows: repeat(2,100px);
         margin : 100px 30% 0 30%;
         border:3px solid black;
         background-color: floralwhite;
@@ -96,7 +73,7 @@
     }
     input{
         margin:var(--form-element-margin);
-        height: 2em;
+        max-height: 2em;
         font-family:Quicksand;
         font-size: 1em;
     }
@@ -108,7 +85,7 @@
         gap:40px;
         margin: var(--form-element-margin);
         grid-column-end: span 2;
-        width: 60%;
+        width: 90%;
         justify-self: center;
         font-family: Quicksand;
     }

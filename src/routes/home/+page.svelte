@@ -8,10 +8,10 @@
     let searchData = {};
     let reloadSearch = {};
 
-    let username = data.user.username;
+    console.log(data.userInfo)
 
     async function deletePost(id){
-        if(data.user.userStatus=='admin'){
+        if(data.userInfo.status=='admin'){
             await fetch('/api/delete-post/'+id,{method:'DELETE'})
             .then(()=>invalidate('data:posts'))
             .then(()=>reloadSearch = {})
@@ -21,7 +21,12 @@
 </script>
 
 <Titrepage content="Le petit blog des petits potins"/>
-{#if username!=undefined}<h3 class="welcome-message">Bienvenue, {username} !</h3>{/if}
+
+{#if data.userInfo.status != 'logged out'}
+    <h3 class="welcome-message">
+        Bienvenue, {data.userInfo.username} !
+    </h3>
+{/if}
 
 {#key reloadSearch}
     <Searchform allPosts={data.posts} bind:searchData/>
@@ -42,7 +47,7 @@
 
             </li>
 
-            {#if data.user.userStatus == 'admin'}
+            {#if data.userInfo.status == 'admin'}
 
                 <div class="delete-container" on:click={deletePost(post._id)}>
                     <img src="/images/cross.svg" alt="delete"/>

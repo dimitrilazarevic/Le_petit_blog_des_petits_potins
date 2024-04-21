@@ -1,6 +1,7 @@
 import { API_URL } from "$lib/config";
 import { redirect, fail } from '@sveltejs/kit';
-import { formToJson,setCookies } from "../../../lib/functions";
+import { formToJson,generateString } from "$lib/functions";
+import { cookieOptions } from '$lib/config'
 
 // Je déclare cette variable pour que l'username ou l'email de l'user reste affiché si il se trompe de mot de passe
 
@@ -31,7 +32,7 @@ export const actions = {
             }else
             {
                 user = await res.json();
-                setCookies(user,{cookies});
+                cookies.set('sessionID',user.sessionID,cookieOptions);
             }
         }catch(err){
             return fail(422,{

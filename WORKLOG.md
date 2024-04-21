@@ -1,3 +1,10 @@
+## Encore à faire 
+-[ ] Changer le système de cookies !
+
+Pour ça : 
+- Dans login, qui est l'endroit dans lequel l'utilisateur obtient ses cookies, je set un sessionID qui est une chaîne aléatoire de caractères.
+- Dans layout, je lis ce cookie et je vais fetch l'user qui correspond en cherchant son nom et status par exemple.
+
 ## Mise en place du backend
 
 ### server.js

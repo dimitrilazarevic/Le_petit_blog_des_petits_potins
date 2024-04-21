@@ -52,7 +52,7 @@
  
     {:else if !passwordIsGood} 
 
-        <p class="error">Le mot de passe doit être compris entre 7 et 14 caractères</p>
+        <p class="error">Le mot de passe doit être compris entre 7 et 14 caractères.</p>
 
     {:else if !passwordsMatch}
 
