@@ -1,9 +1,17 @@
 # Le petit blog des petits potins
 
-#### Quick demo :
+## Quick demo :
+
+### Rechercher par mots clés, login en tant qu'admin, supprimer un post en tant qu'admin :
 ![alt text](static/images/readme/Overview.gif)
+
+### Logout, se connecter en tant qu'user avec une erreur de mot de passe, créer un post (avec le texte par défaut) :
 ![alt text](static/images/readme/Overview2.gif)
+
+### Register, et confirmer le compte :
 ![alt text](static/images/readme/Overview3.gif)
+
+### Mot de passe oublier, choisir un nouveau mot de passe :
 ![alt text](static/images/readme/Overview4.gif)
 
 ## Sommaire : 

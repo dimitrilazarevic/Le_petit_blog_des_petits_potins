@@ -28,7 +28,7 @@
         grid-template-columns: 2fr 5fr;
         grid-template-rows: 100px 300px 100px;
         margin : 0 20% 0 20%;
-        border:3px solid black;
+        border:1px solid black;
         background-color: floralwhite;
     }
     label{

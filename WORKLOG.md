@@ -1,9 +1,29 @@
-## Encore à faire 
--[ ] Changer le système de cookies !
+## A améliorer pour l'avenir...
+- Utiliser plus de layouts pour les styles ou des styles globaux pour certains éléments (forms par exemple)
+- Simplifier l'arborescence, ici, tout est dans le dossier global, il faudrait avoir quelque chose qui regroupe tout ce qui est lié à l'authentification par exemple
+- Déplacer le server dans src et pas src/lib et différencier les noms de config : configServer et configClient !
+- Trouver des meilleurs moyens de run des tests
+-[x] Afficher les posts stockés localement et pas les posts globaux !
+Pour celui là, j'ai utilisé la méthode findIndex de l'array posts pour trouver l'index du truc correspondant, et ensuite, j'ai concaténé slice(0,index) et slice(index+1,length) pour faire le nouveau posts. 
 
-Pour ça : 
-- Dans login, qui est l'endroit dans lequel l'utilisateur obtient ses cookies, je set un sessionID qui est une chaîne aléatoire de caractères.
-- Dans layout, je lis ce cookie et je vais fetch l'user qui correspond en cherchant son nom et status par exemple.
+## Encore à faire 
+-[x] Changer le système de cookies !
+
+Explication : les cookies de l'ancienne version contenaient les infos de l'user. Mais comme les cookies sont éditables, on ne peut pas stocker de façon sûre ces infos ici. Solution : mettre en place un ID de session qui est un attribut de l'user.
+
+Cet ID de session est donné lors du login, de la confirmation de register ou du changement réussi d'un password.
+
+Il est défini dans les routes : après avoir créé un user, si ça a réussi, on génère ce string et on l'attribue à l'user avec user.sessionId = value et await user.save
+
+A chaque changement de page, on va fetch les données de l'user correspondant à cet ID de session. On fait donc ça dans le layout global, qui s'applique à toutes les pages. Ce fetch est dans le return de la fonction load de layout.server.svelte
+
+Dans chaque page, ces données sont accessible dans data. A partir de là, c'est facile, on fait ce qu'on veut avec.
+
+Le logout donc va juste supprimer le cookie sessionID.
+
+Occasionnellement j'ai pu avoir un bug sur home où les infos d'user ne se mettaient pas à jour, après une redirection depuis confirm register. Il a donc fallu utiliser invalidate, et directement dans layout.svelte pour être sûr que ça le fasse partout au cas où.
+
+
 
 ## Mise en place du backend
 

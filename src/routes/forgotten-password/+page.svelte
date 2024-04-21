@@ -64,7 +64,7 @@
         grid-template-columns: 2fr 5fr;
         grid-template-rows: repeat(2,100px);
         margin : 100px 30% 0 30%;
-        border:3px solid black;
+        border:1px solid black;
         background-color: floralwhite;
     }
     label{

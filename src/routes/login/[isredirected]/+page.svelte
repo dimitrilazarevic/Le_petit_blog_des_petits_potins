@@ -38,7 +38,7 @@
         Mot de passe :
     </label>
     <input name="password" type="password"/>
-    
+
     <div class="actions-container">
         <a href="/register">Première connexion ?</a>
         <button type="submit">Login</button>
@@ -68,8 +68,8 @@
         display:grid;
         grid-template-columns: 2fr 5fr;
         grid-template-rows: repeat(3,100px);
-        margin : 30px 30% 0 30%;
-        border:3px solid black;
+        margin : 30px 25% 0 25%;
+        border:1px solid black;
         background-color: floralwhite;
     }
     label{

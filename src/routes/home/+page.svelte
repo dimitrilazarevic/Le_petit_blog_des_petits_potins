@@ -4,15 +4,23 @@
     import Titrepage from '$lib/components/Titrepage.svelte';
     import Affichagedate from './Affichagedate.svelte';
     import Searchform from './Searchform.svelte';
+    import {API_URL} from '$lib/config'
 
     let searchData = {};
     let reloadSearch = {};
+    let posts = data.posts ;
 
     async function deletePost(id){
         if(data.userInfo.status=='admin'){
-            await fetch('/delete-post/'+id,{method:'DELETE'})
-            .then(()=>invalidate('data:posts'))
-            .then(()=>reloadSearch = {})
+            let deletedPost = await fetch(API_URL+'/delete-post/'+id,{method:'DELETE'})
+            .then((res)=>res.json())
+
+            let index = posts.findIndex((val)=>val._id==deletedPost._id);
+            let posts1 = posts.slice(0,index)
+            let posts2 = posts.slice(index+1,posts.length)
+            posts = posts1.concat(posts2);
+
+            reloadSearch = {};
         }
     }
 
@@ -27,12 +35,12 @@
 {/if}
 
 {#key reloadSearch}
-    <Searchform allPosts={data.posts} bind:searchData/>
+    <Searchform allPosts={posts} bind:searchData/>
 {/key}
 
 <ul class="post-container">
 
-    {#each data.posts as post}
+    {#each posts as post}
 
         {#if (post.matchesSearch||searchData.pageIsNew)}
 
@@ -79,7 +87,7 @@
         list-style-type: none;
         padding: 20px;
         margin: 10px;
-        border: 2px solid black;
+        border: 1px solid black;
         border-radius: 10px;
         transition: transform 150ms;
     }
