@@ -3,12 +3,13 @@
 - Simplifier l'arborescence, ici, tout est dans le dossier global, il faudrait avoir quelque chose qui regroupe tout ce qui est lié à l'authentification par exemple
 - Déplacer le server dans src et pas src/lib et différencier les noms de config : configServer et configClient !
 - Trouver des meilleurs moyens de run des tests
--[x] Afficher les posts stockés localement et pas les posts globaux !
+
+- [x] Afficher les posts stockés localement et pas les posts globaux !
 Pour celui là, j'ai utilisé la méthode findIndex de l'array posts pour trouver l'index du truc correspondant, et ensuite, j'ai concaténé slice(0,index) et slice(index+1,length) pour faire le nouveau posts. 
--[x] Mettre un cas d'erreur pour toutes les actions de type fetch : pas pu delete, pas pu ci pas pu ça... pour que ça montre qu'on a pris en compte la chose. 
+- [x] Mettre un cas d'erreur pour toutes les actions de type fetch : pas pu delete, pas pu ci pas pu ça... pour que ça montre qu'on a pris en compte la chose. 
 
 ## Encore à faire 
--[x] Changer le système de cookies !
+- [x] Changer le système de cookies !
 
 Explication : les cookies de l'ancienne version contenaient les infos de l'user. Mais comme les cookies sont éditables, on ne peut pas stocker de façon sûre ces infos ici. Solution : mettre en place un ID de session qui est un attribut de l'user.
 
