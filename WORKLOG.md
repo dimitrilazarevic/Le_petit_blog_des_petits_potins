@@ -1,14 +1,4 @@
-## A améliorer pour l'avenir...
-- Utiliser plus de layouts pour les styles ou des styles globaux pour certains éléments (forms par exemple, erreurs...). Commencé à le faire pour les erreurs mais je ne vais pas aller plus loin.
-- Simplifier l'arborescence, ici, tout est dans le dossier global, il faudrait avoir quelque chose qui regroupe tout ce qui est lié à l'authentification par exemple
-- Déplacer le server dans src et pas src/lib et différencier les noms de config : configServer et configClient !
-- Trouver des meilleurs moyens de run des tests
-
-- [x] Afficher les posts stockés localement et pas les posts globaux !
-Pour celui là, j'ai utilisé la méthode findIndex de l'array posts pour trouver l'index du truc correspondant, et ensuite, j'ai concaténé slice(0,index) et slice(index+1,length) pour faire le nouveau posts. 
-- [x] Mettre un cas d'erreur pour toutes les actions de type fetch : pas pu delete, pas pu ci pas pu ça... pour que ça montre qu'on a pris en compte la chose. 
-
-## Encore à faire 
+## Fait à posteriori
 - [x] Changer le système de cookies !
 
 Explication : les cookies de l'ancienne version contenaient les infos de l'user. Mais comme les cookies sont éditables, on ne peut pas stocker de façon sûre ces infos ici. Solution : mettre en place un ID de session qui est un attribut de l'user.
@@ -24,6 +14,10 @@ Dans chaque page, ces données sont accessible dans data. A partir de là, c'est
 Le logout donc va juste supprimer le cookie sessionID.
 
 Occasionnellement j'ai pu avoir un bug sur home où les infos d'user ne se mettaient pas à jour, après une redirection depuis confirm register. Il a donc fallu utiliser invalidate, et directement dans layout.svelte pour être sûr que ça le fasse partout au cas où.
+
+- [x] Afficher les posts stockés localement et pas les posts globaux !
+Pour celui là, j'ai utilisé la méthode findIndex de l'array posts pour trouver l'index du truc correspondant, et ensuite, j'ai concaténé slice(0,index) et slice(index+1,length) pour faire le nouveau posts. 
+- [x] Mettre un cas d'erreur pour toutes les actions de type fetch : pas pu delete, pas pu ci pas pu ça... pour que ça montre qu'on a pris en compte la chose. 
 
 
 # Documentation du projet
@@ -320,9 +314,11 @@ Pour se logout, on utilise un formulaire avec un seul bouton qui reset les cooki
 On utilisera les propriétés de page : $page.error.status ou $page.error.message.
 
 
-## A améliorer :
-- Les cookies d'utilisateurs sont une faille de sécurité et le système doit être changé pour mettre en place un token de session à la place
-- Il y a du code un peu trop répété, pas assez factorisé surtout au niveau du CSS : j'aurais peut être dû faire plus usage des styles globaux, ou trouver une autre solution
-- Mettre server dans lib ne fait pas vraiment de sens. Il aurait dû être mis au même niveau que routes, juste en dessous de src
-- Là, on ne loade pas beaucoup de data sur la page d'accueil donc j'ai pu me permettre de reload tout quand je supprime un élément, mais il vaudrait mieux stocker en local une liste de posts et agir sur elle, pour ne pas avoir à tout reload à chaque fois.
+## A améliorer pour l'avenir...
+- Déplacer le server dans src et pas src/lib et différencier les noms de config : configServer et configClient !
+- Utiliser plus de layouts pour les styles ou des styles globaux pour certains éléments (forms par exemple, erreurs...). Commencé à le faire pour les erreurs mais je ne vais pas aller plus loin.
+- Simplifier l'arborescence, ici, tout est dans le dossier global, il faudrait avoir quelque chose qui regroupe tout ce qui est lié à l'authentification par exemple : auth/login, auth/register, auth/confirm-registration...
+- Trouver des meilleurs moyens de run des tests parce que là c'était très lent...
+
+
 
