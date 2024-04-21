@@ -1,6 +1,6 @@
 import { API_URL } from "$lib/config"; 
 import { redirect } from '@sveltejs/kit';
-import { formToJson,readCookies } from "../../lib/functions";
+import { formToJson } from "$lib/functions";
 
 
 export const actions = {
@@ -9,7 +9,7 @@ export const actions = {
         let reqBody = formToJson(postData);
         await fetch
         (
-            API_URL+'/api/create-post',
+            API_URL+'/create-post',
             {
                 method : 'POST',
                 body : reqBody,
@@ -27,7 +27,7 @@ export async function load({cookies}){
         if(
             await 
             fetch
-            (API_URL+'/api/user-info/'+cookies.get('sessionID'))
+            (API_URL+'/user-info/'+cookies.get('sessionID'))
             .then((res)=>res.json())
             .then((res)=>res.status)
             ==

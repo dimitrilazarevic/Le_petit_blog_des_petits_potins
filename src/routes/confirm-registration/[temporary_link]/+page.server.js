@@ -4,7 +4,7 @@ import { error } from '@sveltejs/kit';
 export async function load({cookies,params}){
     let res = 
         await 
-        fetch(API_URL+'/api/confirm-registration/'+params.temporary_link);
+        fetch(API_URL+'/confirm-registration/'+params.temporary_link);
 
     if (res.status == 404){
         error(

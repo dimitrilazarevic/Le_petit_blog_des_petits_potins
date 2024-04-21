@@ -8,11 +8,9 @@
     let searchData = {};
     let reloadSearch = {};
 
-    console.log(data.userInfo)
-
     async function deletePost(id){
         if(data.userInfo.status=='admin'){
-            await fetch('/api/delete-post/'+id,{method:'DELETE'})
+            await fetch('/delete-post/'+id,{method:'DELETE'})
             .then(()=>invalidate('data:posts'))
             .then(()=>reloadSearch = {})
         }

@@ -28,19 +28,23 @@
 </div>
 
 <form id="login-register-form" method="POST" action="?/submit">
+
     <label for="usernameoremail">
         Email ou nom d'utilisateur :
     </label>
     <input name="usernameoremail" type="text" bind:value={usernameoremail} autofocus/>
+
     <label for='body'>
         Mot de passe :
     </label>
     <input name="password" type="password"/>
+    
     <div class="actions-container">
         <a href="/register">Première connexion ?</a>
         <button type="submit">Login</button>
         <a href="/forgotten-password">Mot de passe oublié ?</a>
     </div>
+
 </form>
 
 <style>

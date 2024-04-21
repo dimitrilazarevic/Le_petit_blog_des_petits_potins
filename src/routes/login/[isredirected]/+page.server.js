@@ -1,6 +1,6 @@
 import { API_URL } from "$lib/config";
 import { redirect, fail } from '@sveltejs/kit';
-import { formToJson,generateString } from "$lib/functions";
+import { formToJson } from "$lib/functions";
 import { cookieOptions } from '$lib/config'
 
 // Je déclare cette variable pour que l'username ou l'email de l'user reste affiché si il se trompe de mot de passe
@@ -17,7 +17,7 @@ export const actions = {
 
             let res = 
             await 
-            fetch(API_URL+'/api/login',
+            fetch(API_URL+'/login',
             {
                 method : 'POST',
                 body : reqBody,

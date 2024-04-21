@@ -11,7 +11,7 @@ export const actions = {
             let userData = await request.formData();
             let reqBody = formToJson(userData);
             let reqBodyJS = JSON.parse(reqBody)
-            let res = await fetch(API_URL+'/api/forgotten-password',{
+            let res = await fetch(API_URL+'/forgotten-password',{
                 method : 'POST',
                 headers : {
                     'Content-Type':'application/json'

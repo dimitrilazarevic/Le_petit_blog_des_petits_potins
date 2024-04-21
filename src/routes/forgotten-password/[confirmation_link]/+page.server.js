@@ -23,7 +23,7 @@ export const actions = {
             let reqBodyJS = JSON.parse(reqBody);
             checkPassword(reqBodyJS.password,reqBodyJS.password2);
             
-            let res = await fetch(API_URL+'/api/forgotten-password/'+params.confirmation_link,
+            let res = await fetch(API_URL+'/forgotten-password/'+params.confirmation_link,
             {
                 method : 'POST',
                 body : reqBody,

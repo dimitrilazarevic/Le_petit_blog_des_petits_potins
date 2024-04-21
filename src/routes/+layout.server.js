@@ -1,4 +1,3 @@
-import { readCookies } from "$lib/functions";
 import { API_URL, cookieOptions } from "$lib/config";
 
 export async function load({cookies,depends}){
@@ -10,6 +9,6 @@ export async function load({cookies,depends}){
     }
     return {
         sessionID : cookies.get('sessionID'),
-        userInfo : await fetch(API_URL+'/api/user-info/'+cookies.get('sessionID')).then((res)=>res.json())
+        userInfo : await fetch(API_URL+'/user-info/'+cookies.get('sessionID')).then((res)=>res.json())
     }
 }

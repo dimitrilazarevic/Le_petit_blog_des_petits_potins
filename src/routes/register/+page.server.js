@@ -1,6 +1,6 @@
 import { API_URL } from "$lib/config";
 import { fail } from '@sveltejs/kit';
-import { formToJson,setCookies } from "../../lib/functions";
+import { formToJson } from "$lib/functions";
 
 const regExpPassword = /^([a-zA-Z0-9!$_-éèêà]{7,14})$/
 
@@ -15,7 +15,7 @@ function checkPassword(password,password2){
 }
 
 export const actions = {
-    submit: async ({request,cookies}) => {
+    submit: async ({request}) => {
         let username = '';
         let email = '';
         try{
@@ -25,7 +25,7 @@ export const actions = {
             username = reqBodyJS.username;
             email = reqBodyJS.email;
             checkPassword(reqBodyJS.password,reqBodyJS.password2);
-            let res = await fetch(API_URL+'/api/create-user',{
+            let res = await fetch(API_URL+'/create-user',{
                 method : 'POST',
                 headers : {
                     'Content-Type':'application/json'
@@ -37,7 +37,6 @@ export const actions = {
             if(!res.ok){
                 throw new Error(user.message)
             }
-            setCookies(user,{cookies});
             return({status:200,email:email});
 
         }catch(err){
