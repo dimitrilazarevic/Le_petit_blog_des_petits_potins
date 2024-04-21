@@ -26,7 +26,7 @@ Le logout donc va juste supprimer le cookie sessionID.
 Occasionnellement j'ai pu avoir un bug sur home où les infos d'user ne se mettaient pas à jour, après une redirection depuis confirm register. Il a donc fallu utiliser invalidate, et directement dans layout.svelte pour être sûr que ça le fasse partout au cas où.
 
 
-
+# Documentation du projet
 ## Mise en place du backend
 
 ### server.js
