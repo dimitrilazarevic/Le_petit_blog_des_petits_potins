@@ -35,13 +35,6 @@ function filterEmptyFields(object)
     return object
 }
 
-//Truc random
-router.get('/', (req, res) => {
-    res
-    .send
-    ("Mes hommages.");
-})
-
 //Get tous les posts
 router.get('/get-posts', async (req, res) => {
     try 

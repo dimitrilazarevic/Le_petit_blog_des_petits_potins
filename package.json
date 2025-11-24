@@ -7,7 +7,7 @@
 		"server": "npm run server --prefix src/lib/server",
 		"build": "vite build",
 		"preview": "vite preview",
-		"dev": "concurrently \"npm run client\" \"npm run server\""
+		"dev": "concurrently --kill-others \"npm run client\" \"npm run server\""
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",
