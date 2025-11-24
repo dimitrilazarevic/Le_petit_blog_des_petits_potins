@@ -96,6 +96,8 @@ router.post('/create-post', async (req, res) => {
 //Supprimer un post
 router.delete('/delete-post/:id', async (req, res) => {
 
+    console.log("Suis-je ici ?");
+    
     let id = req.params.id;
 
     try 
