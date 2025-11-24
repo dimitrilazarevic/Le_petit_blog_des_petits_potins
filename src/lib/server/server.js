@@ -6,7 +6,7 @@ const routes = require('./routes/routes.js')
 
 const app = express();
 
-app.use(cors({
+/*app.use(cors({
   origin: [
     'https://dimitri-lazarevic.fr',
     'http://localhost:5173'  // Pour le dev local
@@ -15,7 +15,22 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true  // Si vous utilisez des cookies
 }));
-app.options('*', cors());
+app.options('*', cors());*/
+
+const allowed = [
+  'https://dimitri-lazarevic.fr',
+  'http://localhost:5173'
+];
+
+app.use(cors({
+  origin: (origin, cb) => {
+    if (!origin || allowed.includes(origin)) cb(null, true);
+    else cb(new Error('Not allowed by CORS'));
+  },
+  methods: ['GET','POST','PUT','DELETE','PATCH','OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
 
 
 app.use(express.json());
