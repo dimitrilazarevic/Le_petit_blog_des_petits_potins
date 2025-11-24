@@ -5,7 +5,17 @@ const {PORT,MONGO_URI} = require ('./config.js')
 const routes = require('./routes/routes.js')
 
 const app = express();
-app.use(cors())
+
+app.use(cors({
+  origin: [
+    'https://dimitri-lazarevic.fr',
+    'http://localhost:5173'  // Pour le dev local
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true  // Si vous utilisez des cookies
+}));
+
 app.use(express.json());
 app.use('/api',routes);
 app.listen(PORT,()=>console.log("Connecté au port "+PORT+" capitaine !"))
